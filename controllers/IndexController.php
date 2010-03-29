@@ -19,7 +19,7 @@ class SimplePages_IndexController extends Omeka_Controller_Action
     {
         // Set the model class so this controller can perform some functions, 
         // such as $this->findById()
-        $this->_modelClass = 'SimplePagesPage';
+        $this->_helper->db->setDefaultModelName('SimplePagesPage');
     }
     
     public function indexAction()
