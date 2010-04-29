@@ -33,7 +33,7 @@
                                              'cols'  => 66, 
                                              'rows'  => 20)); ?>
         <p class="explanation">The content for the page (optional). HTML markup and 
-        PHP code are allowed.</p>    
+        PHP code are allowed, but may be filtered out depending on your plugin configuration settings.</p>    
     </div>
 </div>
 <div class="field">

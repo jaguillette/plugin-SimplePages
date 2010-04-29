@@ -73,6 +73,9 @@ function simple_pages_install()
     $page->slug = 'about';
     $page->text = '<p>This is an example page. Feel free to replace this content, or delete the page and start from scratch.</p>';
     $page->save();
+    
+    // Set the html filtering to true by default
+    set_option('simple_pages_filter_page_content', '1');
 }
 
 /**
@@ -274,7 +277,8 @@ function simple_pages_filter_html($request, $purifier)
     }
     
     $post = $request->getPost();
-    $post['text'] = $purifier->purify($post['text']);    
+    $post['text'] = $purifier->purify($post['text']); 
+           
     $request->setPost($post);
 }
 
