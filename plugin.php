@@ -19,6 +19,7 @@ add_plugin_hook('define_acl', 'simple_pages_define_acl');
 add_plugin_hook('config_form', 'simple_pages_config_form');
 add_plugin_hook('config', 'simple_pages_config');
 add_plugin_hook('initialize', 'simple_pages_initialize');
+add_plugin_hook('admin_theme_header', 'simple_pages_admin_theme_header');
 
 // Custom plugin hooks from other plugins.
 add_plugin_hook('html_purifier_form_submission', 'simple_pages_filter_html');
@@ -343,6 +344,15 @@ function simple_pages_display_breadcrumbs($pageId, $seperator=' > ', $includePag
         $html .= implode(html_escape($seperator), array_reverse($pageLinks));
     }
     return $html;
+}
+
+function simple_pages_admin_theme_header($request)
+{
+	if ($request->getModuleName() == 'simple-pages') {
+		echo js('tiny_mce/tiny_mce');
+		echo js('jquery');
+        echo js('simplepages');
+	}
 }
 
 class SimplePagesControllerPlugin extends Zend_Controller_Plugin_Abstract
