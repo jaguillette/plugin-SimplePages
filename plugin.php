@@ -16,8 +16,6 @@ add_plugin_hook('install', 'simple_pages_install');
 add_plugin_hook('uninstall', 'simple_pages_uninstall');
 add_plugin_hook('upgrade', 'simple_pages_upgrade');
 add_plugin_hook('define_acl', 'simple_pages_define_acl');
-add_plugin_hook('config_form', 'simple_pages_config_form');
-add_plugin_hook('config', 'simple_pages_config');
 add_plugin_hook('initialize', 'simple_pages_initialize');
 add_plugin_hook('admin_theme_header', 'simple_pages_admin_theme_header');
 
@@ -212,16 +210,6 @@ function simple_pages_page_caching_blacklist_for_record($blacklist, $record, $ac
     }
         
     return $blacklist;
-}
-
-function simple_pages_config_form()
-{
-    include 'config_form.php';
-}
-
-function simple_pages_config()
-{
-    set_option('simple_pages_filter_page_content', (int)(boolean)$_POST['simple_pages_filter_page_content']);
 }
 
 /**
