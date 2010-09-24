@@ -30,8 +30,10 @@ class SimplePages_FilterPHPTest extends SimplePages_Test_AppTestCase
         $this->dispatch('simple-pages/index/edit/id/1');
         
         $page = $this->db->getTable('SimplePagesPage')->find(1);
-        $this->assertEquals('about', $page->slug);      
-        $this->assertEquals('by', $page->text);
+        $this->assertEquals('about', $page->slug);
+        // Escaping the ampersand has the same effect as stripping the entire
+        // segment would.      
+        $this->assertEquals('&lt;?php echo "Bob"; ?&gt;by', $page->text);
     }
     
     public function testNoFilterPHPFromSimplePageText()
