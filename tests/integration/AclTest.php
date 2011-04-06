@@ -23,15 +23,11 @@ class SimplePages_AclTest extends Omeka_Test_AppTestCase
         require_once PLUGIN_DIR . DIRECTORY_SEPARATOR . 'SimplePages' 
             . DIRECTORY_SEPARATOR . 'plugin.php';
         simple_pages_define_acl($this->acl);    
+        self::dbChanged(false);
     }
-    
+
     public function assertPreConditions()
     {
-        if (version_compare(OMEKA_VERSION, '2.0-dev', '<')) {
-            $this->assertFalse($this->currentuser);
-        } else {
-            $this->assertNull($this->currentuser);
-        }
         $this->assertTrue($this->acl->has('SimplePages_Index'),
             "SimplePages ACL resources have not been defined.");
     }
