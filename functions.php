@@ -271,11 +271,10 @@ function simple_pages_display_hierarchy($parentPageId = 0, $partialFilePath='ind
 
 function simple_pages_admin_theme_header($request)
 {
-	if ($request->getModuleName() == 'simple-pages') {
-		echo js('tiny_mce/tiny_mce');
-		echo js('jquery');
-        echo js('simplepages');
-	}
+    if ($request->getModuleName() == 'simple-pages') {
+        queue_js('tiny_mce/tiny_mce');
+        queue_js('simplepages');
+    }
 }
 
 class SimplePagesControllerPlugin extends Zend_Controller_Plugin_Abstract
