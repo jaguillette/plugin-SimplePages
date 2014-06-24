@@ -15,7 +15,7 @@ add_plugin_hook('upgrade', 'simple_pages_upgrade');
 add_plugin_hook('define_acl', 'simple_pages_define_acl');
 add_plugin_hook('initialize', 'simple_pages_initialize');
 add_plugin_hook('admin_theme_header', 'simple_pages_admin_theme_header');
-
+add_plugin_hook('define_routes', 'simple_pages_define_routes');
 // Custom plugin hooks from other plugins.
 add_plugin_hook('html_purifier_form_submission', 'simple_pages_filter_html');
 

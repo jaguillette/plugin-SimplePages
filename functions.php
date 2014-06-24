@@ -141,6 +141,50 @@ function simple_pages_define_acl($acl)
 }
 
 /**
+ * Add the routes for accessing simple pages by slug, and for
+ * replacing the public home page
+ *
+ * @param Zend_Controller_Router_Rewrite $router
+ */
+function simple_pages_define_routes($router)
+{
+    // no special routing for admin side.
+    if(is_admin_theme()){
+        return;
+    }
+
+    //add custom routes based on the page slug.
+    $pages = get_db()->getTable('SimplePagesPage')->findAll();
+    foreach ($pages as $page) {
+        $router->addRoute(
+            'simple_pages_show_page_'.$page->id,
+            new Zend_Controller_Router_Route(
+                array(
+                    'module'     => 'simple_pages',
+                    'controller' => 'page',
+                    'action'     => 'show',
+                    'id'         => $page->id
+                )
+            )
+        );
+
+        if (simple_pages_is_home_page($page)) {
+            $router->addRoute(
+                'simple_pages_show_home_page_'.$page->id,
+                new Zend_Controller_Router_Route(
+                    '/',
+                    array(
+                        'module'     => 'simple_pages',
+                        'controller' => 'page',
+                        'action'     => 'show',
+                        'id'         => $page->id
+                    )
+                )
+            );
+        }
+    }
+}
+/**
  * Specify the default list of urls to whitelist
  * 
  * @param $whitelist array An associative array urls to whitelist, 
