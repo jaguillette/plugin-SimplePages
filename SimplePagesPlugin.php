@@ -17,7 +17,7 @@ class SimplePagesPlugin extends Omeka_Plugin_AbstractPlugin
      * @var array Hooks for the plugin.
      */
     protected $_hooks = array('install', 'uninstall', 'upgrade', 'initialize',
-        'define_acl', 'define_routes', 'config_form', 'config',
+        'define_acl', 'define_routes', 
         'html_purifier_form_submission');
 
     /**
@@ -31,9 +31,6 @@ class SimplePagesPlugin extends Omeka_Plugin_AbstractPlugin
     /**
      * @var array Options and their default values.
      */
-    protected $_options = array(
-        'simple_pages_filter_page_content' => '0'
-    );
 
     /**
      * Install the plugin.
@@ -79,7 +76,6 @@ class SimplePagesPlugin extends Omeka_Plugin_AbstractPlugin
         $page->text = '<p>This is an example page. Feel free to replace this content, or delete the page and start from scratch.</p>';
         $page->save();
 
-        $this->_installOptions();
     }
 
     /**
@@ -92,7 +88,6 @@ class SimplePagesPlugin extends Omeka_Plugin_AbstractPlugin
         $sql = "DROP TABLE IF EXISTS `$db->SimplePagesPage`";
         $db->query($sql);
 
-        $this->_uninstallOptions();
     }
 
     /**
@@ -215,21 +210,6 @@ class SimplePagesPlugin extends Omeka_Plugin_AbstractPlugin
         }
     }
 
-    /**
-     * Display the plugin config form.
-     */
-    public function hookConfigForm()
-    {
-        require dirname(__FILE__) . '/config_form.php';
-    }
-
-    /**
-     * Set the options from the config form input.
-     */
-    public function hookConfig()
-    {
-        set_option('simple_pages_filter_page_content', (int)(boolean)$_POST['simple_pages_filter_page_content']);
-    }
 
     /**
      * Filter the 'text' field of the simple-pages form, but only if the 
@@ -247,11 +227,6 @@ class SimplePagesPlugin extends Omeka_Plugin_AbstractPlugin
 
         // If we aren't editing or adding a page in SimplePages, don't do anything.
         if ($request->getModuleName() != 'simple-pages' or !in_array($request->getActionName(), array('edit', 'add'))) {
-            return;
-        }
-        
-        // Do not filter HTML for the request unless this configuration directive is on.
-        if (!get_option('simple_pages_filter_page_content')) {
             return;
         }
         
